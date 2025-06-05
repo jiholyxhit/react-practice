@@ -1,21 +1,29 @@
-import Child from "./Child.jsx";
-import { ClassComponent, FunctionComponent, ArrowFunctionComponent } from "./Components";
+import "./App.css";
 
-const Hello = () => {
-  return <h1>Hello!</h1>
-}
+import withConditionalCard from "./withConditionalCard.jsx"
+import SimpleCard from "./Simplecard.jsx"
 
-function App() {
-  return (
+function App(){
+  const ConditionalSimpleCard = withConditionalCard(SimpleCard)
+
+  return(
     <>
-      <Hello/>
-      <h2>World</h2>
-      <Child/>
-      <ClassComponent/>
-      <FunctionComponent/>
-      <ArrowFunctionComponent/>
+
+      <ConditionalSimpleCard
+        title="Active Card" 
+        content="This card is active." 
+        disabled={false} 
+      />
+
+      <ConditionalSimpleCard 
+      title="Disabled Card" 
+      content="This card is disabled." 
+      disabled={true} 
+      />
+
     </>
+
   )
-};
+}
 
 export default App;
