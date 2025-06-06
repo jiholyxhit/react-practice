@@ -1,28 +1,22 @@
 import "./App.css";
 
-import withConditionalCard from "./withConditionalCard.jsx"
-import SimpleCard from "./Simplecard.jsx"
+import Button from "./Button.jsx"
 
 function App(){
-  const ConditionalSimpleCard = withConditionalCard(SimpleCard)
-
+  
   return(
-    <>
-
-      <ConditionalSimpleCard
-        title="Active Card" 
-        content="This card is active." 
-        disabled={false} 
-      />
-
-      <ConditionalSimpleCard 
-      title="Disabled Card" 
-      content="This card is disabled." 
-      disabled={true} 
-      />
-
-    </>
-
+    <input 
+      onFocus={() => console.log('Focus')}
+      onBlur={() => console.log('Blur')}
+      onChange={(e) => console.log(e.target.value)}
+      onKeyDown={(e) => {
+        console.log(e.key, "DOWN");
+        if(e.key == "Enter" && e.shiftKey){
+          console.log("Shift + Enter DOWN")
+        }
+      }}
+      onKeyUp={(e) => console.log(e.key, "UP")}
+    />
   )
 }
 
