@@ -1,22 +1,53 @@
 import "./App.css";
+import {useState} from "react"
 
-import Button from "./Button.jsx"
 
 function App(){
   
+  const [todos, setTodos] = useState(
+    ['Learn React', 'Build a project']
+  )
+  const [newTodo, setNewTodo] = useState("")
+  
+  function addNewTodo(){
+    setTodos(
+      [...todos, newTodo]
+    )
+    setNewTodo("")
+  }
+
+  const deleteTodo = (index) => {
+    setTodos(
+      todos.filter(
+        (_, i) => i !== index
+      )
+    )
+  }
+
   return(
-    <input 
-      onFocus={() => console.log('Focus')}
-      onBlur={() => console.log('Blur')}
-      onChange={(e) => console.log(e.target.value)}
-      onKeyDown={(e) => {
-        console.log(e.key, "DOWN");
-        if(e.key == "Enter" && e.shiftKey){
-          console.log("Shift + Enter DOWN")
+    <>
+      <h3>Todo List</h3>
+      <ul>
+        {todos.map((todo, index) => 
+        <li key={index}> 
+          {todo} 
+          <button onClick={() => deleteTodo(index)}> Delete </button>
+        </li>
+        )}
+      </ul>
+      <p>Typing: {newTodo}</p>
+      <input 
+        type="text" 
+        value={newTodo} 
+        placeholder="Enter the new todo"
+        onChange={
+          (e) => setNewTodo(e.target.value)
         }
-      }}
-      onKeyUp={(e) => console.log(e.key, "UP")}
-    />
+      />
+      <button onClick={() => addNewTodo()}>
+        Add New Task
+      </button>
+    </>
   )
 }
 
