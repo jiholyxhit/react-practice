@@ -1,52 +1,28 @@
 import "./App.css";
-import {useState} from "react"
+import React, {useReducer} from "react"
+import {countReducer, initialState} from "./reducers/counterReducer.js"
 
 
 function App(){
+  const [state, dispatch] = useReducer(countReducer, initialState)
   
-  const [todos, setTodos] = useState(
-    ['Learn React', 'Build a project']
-  )
-  const [newTodo, setNewTodo] = useState("")
-  
-  function addNewTodo(){
-    setTodos(
-      [...todos, newTodo]
-    )
-    setNewTodo("")
-  }
+  const handleClick = (type, value, event) => {
+    const {clientX: x, clientY: y} = event
+    dispatch({
+      type: type,
+      payload: value,
+      meta: {x, y}
+    })
 
-  const deleteTodo = (index) => {
-    setTodos(
-      todos.filter(
-        (_, i) => i !== index
-      )
-    )
   }
 
   return(
     <>
-      <h3>Todo List</h3>
-      <ul>
-        {todos.map((todo, index) => 
-        <li key={index}> 
-          {todo} 
-          <button onClick={() => deleteTodo(index)}> Delete </button>
-        </li>
-        )}
-      </ul>
-      <p>Typing: {newTodo}</p>
-      <input 
-        type="text" 
-        value={newTodo} 
-        placeholder="Enter the new todo"
-        onChange={
-          (e) => setNewTodo(e.target.value)
-        }
-      />
-      <button onClick={() => addNewTodo()}>
-        Add New Task
-      </button>
+      <p>Count: {state.count}</p>
+      <button onClick={(e) =>handleClick("INC", 1, e)}>+1</button>
+      <button onClick={(e) => handleClick("DEC", 1, e)}>-1</button>
+      <button onClick={(e) => handleClick("INC", 2, e)}>+2</button>
+      <button onClick={(e) => handleClick("DEC", 2, e)}>-2</button>
     </>
   )
 }
