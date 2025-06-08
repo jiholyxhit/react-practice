@@ -4,31 +4,22 @@ export const initialState = {
 }
 
 export function countReducer(state, action){
-    const {value} = action.payload
     const {x, y} = action.meta
 
     switch(action.type){
         case "INC":
-            console.log(`Click: (${x}, ${y})`)
+            console.log(`Click: ${x}, ${y}`)
             return {
                 ...state,
-                count: state.count + value
-            }
+                count: state.count + action.payload        
+            }  
         case "DEC":
-            console.log(`Click: (${x}, ${y})`)
+            console.log(`Click: ${x}, ${y}`)
             return {
                 ...state,
-                count: state.count - value
-            }
+                count: state.count - action.payload        
+            }    
         default:
             throw new Error("Unknown action type")
-    }
-}
-
-export function init(externalData){
-    return{
-        ...initialState,
-        name: externalData.name,
-        year: externalData.year
     }
 }

@@ -1,29 +1,24 @@
 import "./App.css";
-import React, {useReducer} from "react"
-import {countReducer, initialState} from "./reducers/counterReducer.js"
-
+import {useRef} from "react"
 
 function App(){
-  const [state, dispatch] = useReducer(countReducer, initialState)
-  
-  const handleClick = (type, value, event) => {
-    const {clientX: x, clientY: y} = event
-    dispatch({
-      type: type,
-      payload: value,
-      meta: {x, y}
-    })
+  const inputRef = useRef(null)
+
+  const handleFocus = () => {
+    console.log(inputRef)
+    console.log(inputRef.current)
+    inputRef.current.focus() 
 
   }
 
   return(
-    <>
-      <p>Count: {state.count}</p>
-      <button onClick={(e) =>handleClick("INC", 1, e)}>+1</button>
-      <button onClick={(e) => handleClick("DEC", 1, e)}>-1</button>
-      <button onClick={(e) => handleClick("INC", 2, e)}>+2</button>
-      <button onClick={(e) => handleClick("DEC", 2, e)}>-2</button>
-    </>
+    <div>
+      <input ref={inputRef}
+      type="text" placeholder="Type..." />
+      <button onClick={handleFocus}>
+        Focus Input
+      </button>
+    </div>
   )
 }
 
