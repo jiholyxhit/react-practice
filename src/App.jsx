@@ -1,21 +1,16 @@
 import "./App.css";
 import {useState} from "react"
-import Timer from "./Timer.jsx"
+import { useWindowSize } from "./hooks/useWindowSize.js";
 
 const App = () => {
-  const [showTimer, setShowTimer] = useState(false)
+  
+  const {width, length} = useWindowSize()
 
   return(
     <>
-      <label>
-        <input 
-          type="checkbox"
-          checked={showTimer}
-          onChange={(e) => setShowTimer(e.target.checked) } 
-        />
-          Show Timer
-      </label>
-      {showTimer && <Timer/>}
+      <h2>Window Size</h2>
+      <p>Width: {width}</p>
+      <p>Length: {length}</p>
     </>
   )
 } 
