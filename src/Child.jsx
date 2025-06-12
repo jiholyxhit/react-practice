@@ -1,14 +1,20 @@
+import React from "react"
 
-const Child = () => {
+const Child = ({active, onClick}) => {
+    console.log("Child Rendered")
+    
     return (
-        <p>
-            This is a
-            <br/>
-            child component
-        </p>
+        <div>
+            <p>
+                Child: {active ? "Active" : "Not Active"}
+            </p>
+            <button onClick={onClick}>
+                Increase
+            </button>
+        </div>
     )
 };
 
-export default Child;
+export default React.memo(Child);
 
 

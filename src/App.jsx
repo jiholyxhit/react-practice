@@ -1,18 +1,25 @@
-import "./App.css";
+import "./App.css"
 import {useState} from "react"
-import { useWindowSize } from "./hooks/useWindowSize.js";
+import Child from "./Child.jsx"
 
-const App = () => {
-  
-  const {width, length} = useWindowSize()
+export default function App(){
+  const [count, setCount] = useState(0)
+  const [active, setActive] = useState(true)
+
+  const handleClick = useCallback(
+    () => {setCount(c => c+1)}
+    , [])
 
   return(
     <>
-      <h2>Window Size</h2>
-      <p>Width: {width}</p>
-      <p>Length: {length}</p>
+      <h2>Parent</h2>
+      <button onClick={() => setActive(a => !a)}>Toggle Active</button>
+      <p>Count: {count}</p>
+      <Child 
+        active={active}
+        onClick={() => setCount(c => c+1)}/>
     </>
   )
-} 
+}
 
-export default App;
+// export default App
